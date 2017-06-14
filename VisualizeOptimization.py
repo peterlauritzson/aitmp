@@ -17,6 +17,10 @@ import PSO
 from FitnessFunctions import beale_function as f
 
 
+MINIMUM = [3, 0.5] #None
+minima = np.array(MINIMUM).reshape(-1, 1)
+
+
 class TrajectoryAnimation3D(animation.FuncAnimation):
     def __init__(self, *paths, zpaths, labels=[], fig=None, ax=None, frames=None,
                  interval=100, repeat_delay=5, blit=True, repeat=False, **kwargs):
@@ -39,7 +43,7 @@ class TrajectoryAnimation3D(animation.FuncAnimation):
         if frames is None:
             frames = max(paths[0].shape)
 
-        self.lines = [ax.plot([], [], 'bo', label=label)[0]
+        self.lines = [ax.plot([], [], 'b*')[0]
                       for _, label in zip_longest(paths, labels)]
 
         super(TrajectoryAnimation3D, self).__init__(fig, self.animate, init_func=self.init_anim,
@@ -88,12 +92,10 @@ for path in paths:
 paths = np.array(paths)
 zpaths = np.array(zpaths)
 
-lbs = [
-    '1','2','3','4','5','6','7','8','9','10'
-]
-anim = TrajectoryAnimation3D(*paths, zpaths=zpaths, labels=lbs, ax=ax)
+if MINIMUM is not None:
+    ax.plot(*minima, f(minima), 'r*', markersize=10)
 
-ax.legend(loc='upper left')
+anim = TrajectoryAnimation3D(*paths, zpaths=zpaths, ax=ax)
 
 plt.show()
 
