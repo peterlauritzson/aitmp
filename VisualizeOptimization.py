@@ -1,17 +1,12 @@
 
 import matplotlib.pyplot as plt
-import autograd.numpy as np
+import numpy as np
 
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.colors import LogNorm
 from matplotlib import animation
-from IPython.display import HTML
 
-from autograd import elementwise_grad, value_and_grad
-from scipy.optimize import minimize
-from collections import defaultdict
 from itertools import zip_longest
-from functools import partial
 
 import PSO
 from FitnessFunctions import beale_function as f
@@ -23,7 +18,7 @@ minima = np.array(MINIMUM).reshape(-1, 1)
 
 class TrajectoryAnimation3D(animation.FuncAnimation):
     def __init__(self, *paths, zpaths, labels=[], fig=None, ax=None, frames=None,
-                 interval=100, repeat_delay=5, blit=True, repeat=False, **kwargs):
+                 interval=100, repeat_delay=5, blit=True, repeat=True, **kwargs):
 
         if fig is None:
             if ax is None:

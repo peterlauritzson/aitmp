@@ -4,8 +4,8 @@ import numpy as np
 from FitnessFunctions import beale_function as fitness
 
 DIM = 2
-N_GENERATIONS = 100
-N_PARTICLES = 10
+N_GENERATIONS = 1000
+N_PARTICLES = 15
 LOWER_BOUNDS = [-3, -3]
 UPPER_BOUNDS = [3, 3]
 W = 0.7
