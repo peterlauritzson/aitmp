@@ -6,12 +6,11 @@ def linear(x):
 
 
 class NeuralNetwork:
-    def __init__(self):
+    def __init__(self, input_dim, layer_sizes, output_dim):
         self.input_nodes = dict()
 
     def create_input_node(self, activation_function, name):
         self.input_nodes[name] = Node(activation_function, name=name)
-
 
 
 class Node:

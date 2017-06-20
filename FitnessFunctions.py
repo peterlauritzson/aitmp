@@ -1,13 +1,7 @@
 import math
-import numpy
+from sklearn.metrics import log_loss, mean_squared_error
+import numpy as np
 
-
-class DataGenerator:
-    def __init__(self, data_set, label_set):
-        pass
-
-    def generator_function(self):
-        pass
 
 def all_ones(individual):
     fit = 0
@@ -32,11 +26,13 @@ def rastrigin_function(individual, A=10):
     return fitness
 
 
-def predictor_fitness(predictor, data_generator, batch_size=1000):
-    fitness = 0
+def predictor_fitness(predictor, data_generator, loss_function=log_loss, batch_size=1000):
+    correct_outputs = list()
+    outputs = list()
     for _ in range(batch_size):
         input_data, correct_output = data_generator.__next__()
+        correct_outputs.append(correct_output)
         output = predictor(input_data)
-        fitness += numpy.linalg.norm(correct_output - output)**2
-    return fitness
+        outputs.append(output)
+    return loss_function(np.array(correct_outputs), np.array(outputs))
 
