@@ -26,7 +26,7 @@ def rastrigin_function(individual, A=10):
     return fitness
 
 
-def predictor_fitness(predictor, data_generator, loss_function=log_loss, batch_size=1000):
+def predictor_fitness(predictor, data_generator, loss_function=log_loss, batch_size=100):
     correct_outputs = list()
     outputs = list()
     for _ in range(batch_size):
@@ -36,3 +36,7 @@ def predictor_fitness(predictor, data_generator, loss_function=log_loss, batch_s
         outputs.append(output)
     return loss_function(np.array(correct_outputs), np.array(outputs))
 
+
+def network_opt(individual, neural_net, fitness):
+    neural_net.set_all(individual)
+    return fitness(neural_net)
